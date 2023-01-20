@@ -2,18 +2,20 @@ import {BrowserRouter as Router, Routes, Route, Navigate} from  "react-router-do
 import Home from './pages/Home';
 import ProductList from './pages/ProductList';
 import Product from "./pages/Product";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
+import Register from "./pages/register/Register";
+import Login from "./pages/login/Login";
 import Cart from "./pages/Cart";
 import Success from "./pages/Success";
 import { useSelector } from "react-redux";
 
 
+
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
-  //const user = null;
+  
   return  (
     <Router>
+      
       <Routes>
         <Route path = '/' element = {<Home />} />
         <Route path = "/products/:category" element = {<ProductList />} />
@@ -24,6 +26,8 @@ const App = () => {
         <Route path ='/login' element = {user ? <Navigate to="/"/> : <Login />} />
         <Route path ='/register' element = {user ? <Navigate to="/"/> : <Register />}  />
       </Routes>
+
+
     </Router>
 
   );

@@ -105,10 +105,10 @@ const Footer = () => {
   return(
     <Container>
       <Left>
-        <Logo> A-Z Boutique</Logo>
+        <Logo> A-Z Boutique </Logo>
 
         <Desc>
-          dkjfhsdkjfhldkfhldskhflsdkhflsdkhflkdshflkdsflkdshfoi
+        "Empowering customers with stylish, affordable clothing while promoting sustainable practices and ethical production."
         </Desc>
 
         <SocialContainer>
@@ -153,13 +153,13 @@ const Footer = () => {
       <Right>
       <Title>Contact</Title>
       <ContactItem>
-        <Room style={{marginRight:"10px"}}/> 622 Dixie Path , South Tobinchester 98336
+        <Room style={{marginRight:"10px"}}/> Airport road opposit Alpha Bank Juba, South Sudan
       </ContactItem>
       <ContactItem>
-        <Phone style={{marginRight:"10px"}}/> +1 234 56 78
+        <Phone style={{marginRight:"10px"}}/> +211 929 922 414
       </ContactItem>
       <ContactItem>
-        <MailOutline style={{marginRight:"10px"}} /> contact@lama.dev
+        <MailOutline style={{marginRight:"10px"}} /> gochgoch@yahoo.com
       </ContactItem>
       <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
 

@@ -22,8 +22,8 @@ const Products = ({cat,filters,sort}) => {
     const getProducts = async () =>{
       try{
         const res = await axios.get( cat
-          ? `http://127.0.0.1:5000/api/products?category=${cat}`
-          : "http://127.0.0.1:5000/api/products" );
+          ? `https://a-zboutiqueapi.onrender.com/api/products?category=${cat}`
+          : "https://a-zboutiqueapi.onrender.com/api/products" );
         setProducts(res.data)
       }catch(err){
         console.log(err );

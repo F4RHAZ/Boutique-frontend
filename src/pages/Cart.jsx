@@ -220,7 +220,7 @@ const Cart = () => {
 
           <Bottom>
             <Info>
-          {  cart.products.map(product =>(
+          { cart.products.map(product =>(
 
               <Product key={product._id}>
                 <ProductDetails>
@@ -240,6 +240,7 @@ const Cart = () => {
               </ProductDetails>
 
                 <PriceDetail>
+                  
                   <ProductAmountContainer>
                     <Add />
                     <ProductAmount>
@@ -269,11 +270,11 @@ const Cart = () => {
               </SummaryItem>
               <SummaryItem>
                 <SummaryItemText>Estimated Shipping</SummaryItemText>
-                <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+                <SummaryItemPrice>$ 0.00</SummaryItemPrice>
               </SummaryItem>
               <SummaryItem>
                 <SummaryItemText>Shipping Discount</SummaryItemText>
-                <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+                <SummaryItemPrice>$ 0.00</SummaryItemPrice>
               </SummaryItem>
               <SummaryItem type="total">
                 <SummaryItemText>Total</SummaryItemText>

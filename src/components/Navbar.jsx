@@ -5,6 +5,9 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
 import { Link } from  "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/userRedux";
+
 
 
 const Container = styled.div`
@@ -53,7 +56,7 @@ const Center = styled.div`
 
 const Logo = styled.h1`
   font-weight: bold;
-  ${mobile({ fontSize: "24px" })}
+  ${mobile({ fontSize: "16px"})}
 `;
 const Right = styled.div`
   flex: 1;
@@ -64,15 +67,44 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
-  font-size: 14px;
+  font-size: 15px;
   text-decoration: none;
   cursor: pointer;
+  border: 2px dotted teal;
+  border-radius: 10%;
+  padding: 15px;
   margin-left: 25px;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+  &:hover{
+    background-color:#AFEEEE;
+    font-size: 18px;
+    font-weight: 900;
+  }
+  `;
+
+const StyledBadge = styled(Badge)`
+  &:hover {
+    font-size:20px;
+    .MuiSvgIcon-root {
+      font-size: 25px;
+    }
+  }
 `;
+
 
 const Navbar = () => {
   const quantity = useSelector(state=>state.cart.quantity);
+  const user = useSelector(state=>state.user.currentUser);
+
+//  console.log(user);
+
+  const dispatch = useDispatch();
+
+    function handleLogout() {
+       // console.log(localStorage.getItem("persist:root"));
+        localStorage.removeItem("persist:root");
+        dispatch(logout());
+      }
 
 
   return (
@@ -86,26 +118,35 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>A-Z Boutique</Logo>
+        <Link to="/" style={{ textDecoration: 'none', color: 'black', cursor: 'default'}}>
+            <Logo>
+              A-Z Boutique
+          </Logo>
+          </Link>
         </Center>
         <Right>
-        <Link to="register">
-            <MenuItem>
-                REGISTER
-            </MenuItem>
-        </Link>
-        <Link to="/login">
-            <MenuItem>
-              LOGIN
-            </MenuItem>
-          </Link>
-          <Link to="/cart">
-          <MenuItem>
-            <Badge overlap="rectangular" badgeContent={quantity} color="primary">
-              <ShoppingCartOutlined />
-            </Badge>
+        
+        {user ? (
+          <MenuItem onClick={handleLogout}>
+            logout
           </MenuItem>
-          </Link>
+        
+        ): (
+          <>
+            <MenuItem as={Link} to="/register">
+              REGISTER
+            </MenuItem>
+            <MenuItem as={Link} to="/login">
+                  LOGIN
+            </MenuItem>
+            </>
+        )}
+            
+              <MenuItem as={Link} to="/cart">
+                <StyledBadge overlap="rectangular" badgeContent={quantity} color="primary">
+                  <ShoppingCartOutlined />
+                </StyledBadge>
+              </MenuItem>
         </Right>
       </Wrapper>
     </Container>
