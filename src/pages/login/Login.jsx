@@ -183,7 +183,7 @@ const Login = () => {
           />
         ))}
         <button className="loginsubmitbutton" disabled={isFetching}>Submit</button>
-        {error && <Error>Something went wrong...</Error>}
+        {error && <Error>Incorrect credentials Please Try Again.</Error>}
       <p id="NoAcc"style={{marginTop: '5px', marginBottom: '10px'}}>Dont Have an Account?? <Link to="/register">Click here</Link> </p>
       </form>
       </div>

@@ -9,11 +9,13 @@ import { useSelector } from 'react-redux';
 import StripeCheckout from "react-stripe-checkout";
 import {userRequest} from  "../requestMethods";
 import {useNavigate} from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { removeProduct, clearCart, reduceQntity, addProduct } from '../redux/cartRedux';
+import { useDispatch } from "react-redux";
+import CloseIcon from '@mui/icons-material/Close';
+
 
 const KEY=process.env.REACT_APP_STRIPE;
-
-
-
 
 
 const Container = styled.div`
@@ -42,11 +44,13 @@ const TopButton = styled.button`
   padding: 10px;
   font-weight: 600;
   cursor: pointer;
+  border: 1px dotted teal;
+  text-decoration: none;
   border: ${props => props.type === "filled" && "none"};
   background-color: ${props =>
     props.type === "filled" ? "black" : "transparent"};
   color: ${props => props.type === "filled" && "white"};
-
+  
 `;
 
 const TopTexts = styled.div`
@@ -99,6 +103,7 @@ const ProductName = styled.span``;
 const ProductId = styled.span``;
 
 const ProductColor = styled.div`
+  margin-left:5px;
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -106,6 +111,32 @@ const ProductColor = styled.div`
 `;
 
 const ProductSize = styled.span``;
+
+const Productcol = styled.span`
+    display:flex;
+    align-items: center;
+    background-color: beige;
+    padding: 10px;
+    border-radius: 10%;
+  
+    &::before {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 5px;
+      background-color: #000;
+      color: #fff;
+      border-radius: 5px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    &:hover::before {
+        opacity: 1;
+    }
+`;
 
 const PriceDetail = styled.div`
   flex: 1;
@@ -171,16 +202,83 @@ const SummaryItemPrice = styled.span``;
 const Button = styled.button`
   width: 100%;
   padding: 10px;
-  background-color: black;
+  margin-top: 10px;
+  background-color: #394040;
   color: white;
   font-weight: 600;
 `;
+
+
+
+//Modalcomponents
+const ModalWrapper = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 400px;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+  
+const ContinueShoppingButton = styled.button`
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px dotted teal;
+  text-decoration: none;
+  margin: 10px 0px;
+  padding:10px;
+  border: 2px dotted teal;
+  font-size:18px;
+  font-weight:500;
+  
+`;
+
+const CheckoutButton = styled.button`
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px dotted teal;
+  text-decoration: none;
+  margin: 10px 0px;
+  padding:10px;
+  border: 2px dotted teal;
+  font-size:18px;
+  font-weight:500;
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+`;
+
+//
 
 const Cart = () => {
 
   const cart = useSelector(state=>state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector(state=>state.user.currentUser);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+  //const [quantity, setqnt] = useState(1);
 
   const onToken = (token)=>{
       setStripeToken(token);
@@ -194,35 +292,95 @@ const Cart = () => {
         tokenId: stripeToken.id,
         amount: cart.total * 100,
       });
-    navigate("/success", {state : {data:res.data, products: cart}});
-  } catch(err) {
-      console.log(err);
-    }
-  };
-  stripeToken && cart.total>=1 && makeRequest();
-}, [stripeToken, cart.total, navigate, cart]);
+      navigate("/success", {state : {data:res.data, products: cart}});
+      } catch(err) {
+        console.log(err);
+      }
+    };
+    stripeToken && cart.total>=1 && makeRequest();
+  }, [stripeToken, cart.total, navigate, cart]);
 
+    const handleClick = (product) => {
+     dispatch(removeProduct(product));
+    }
+
+    const cleanCart = () =>{
+      dispatch(clearCart())
+    }
+
+    const handleQnt = (type, product) => {
+      if(type === "inc"){
+        //product.quantity += 1;
+        //product.total += product.price;
+        dispatch(addProduct(product));
+      }else if(type === "desc"){
+        if(product.quantity > 0){
+          //product.quantity -= 1;
+          //product.total -= product.price;
+          dispatch(reduceQntity(product));
+        }
+      }
+    }
+
+
+    const openModal = ()=>{
+      setIsModalOpen(!isModalOpen);
+    }
+
+    const closeModal =() =>{
+      setIsModalOpen(false);
+    }
+  
 
   return(
+    <>
+        {isModalOpen && (
+      <ModalWrapper>
+        <h4>LOGIN TO CONTINUE </h4>
+        <CloseButton onClick={closeModal}>
+          <CloseIcon fontSize='large'/>
+        </CloseButton>
+        <Link to="/login">
+          <ContinueShoppingButton>
+            LOGIN
+          </ContinueShoppingButton> 
+        </Link>
+        <Link to="/register">
+          <CheckoutButton>
+            REGISTER
+          </CheckoutButton>
+        </Link>
+      </ModalWrapper>
+    )}
+
+
     <Container>
       <Navbar/>
       <Announcement />
         <Wrapper>
           <Title> YOUR BAG </Title>
           <Top>
-            <TopButton>CONTINUE SHOPPING</TopButton>
+            <TopButton as={Link} to="/">
+              CONTINUE SHOPPING
+            </TopButton>
+            <TopButton 
+              style={{ color:'white', backgroundColor: "crimson", width: "17rem" }} 
+              onClick={cleanCart}
+              >
+              CLEAR CART
+            </TopButton>
             <TopTexts>
-              <TopText>Shopping bag (2)</TopText>
-              <TopText>Your Wishlist (0) </TopText>
+              <TopText> </TopText>
+              <TopText> </TopText>
             </TopTexts>
-            <TopButton type="filled">CHECKOUT NOW</TopButton>
+            
           </Top>
 
           <Bottom>
-            <Info>
+          <Info>
           { cart.products.map(product =>(
-
-              <Product key={product._id}>
+            <Product key={product._id}>
+              <>
                 <ProductDetails>
                   <Image src = {product.img} />
                   <Details>
@@ -230,9 +388,15 @@ const Cart = () => {
                      <b>Product:</b> {product.title}
                    </ProductName>
                    <ProductId>
-                     <b>ID:</b> {product._id}
+                     <b>Desc:</b> {product.desc}
                    </ProductId>
-                   <ProductColor color={product.color} />
+                   
+                   <Productcol>
+                    <b>color:</b> 
+                    <ProductColor color={product.color}/>
+                   </Productcol>
+                      
+                   
                    <ProductSize>
                      <b>Size:</b> {product.size}
                    </ProductSize>
@@ -242,23 +406,28 @@ const Cart = () => {
                 <PriceDetail>
                   
                   <ProductAmountContainer>
-                    <Add />
+                    <Remove onClick ={() => handleQnt("desc", product)}/>
                     <ProductAmount>
                       {product.quantity}
                     </ProductAmount>
-                    <Remove />
+                    <Add onClick ={() => handleQnt("inc", product)}/>
+                    
+                    
                   </ProductAmountContainer>
+                  
 
                   <ProductPrice>$ {product.price*product.quantity}</ProductPrice>
 
+              <Button onClick={() => handleClick(product)}
+                style={{ margin: '10px', width:"85%", backgroundColor: "crimson" }}>
+                  Remove Item
+              </Button>
                 </PriceDetail>
+             
+          <Hr/>
+          </>
               </Product>
             ))}
-
-              <Hr />
-
-
-
 
             </Info>
 
@@ -281,19 +450,26 @@ const Cart = () => {
                 <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
                 </SummaryItem>
 
-                 <StripeCheckout
-                 name="AZ shop"
-                 image="https://t4.ftcdn.net/jpg/03/55/85/33/360_F_355853378_GdpSXobZfh98O1dN6PPatkxZwbeGd9yj.jpg"
-                 billingAddress
-                 shippingAddress
-                 description = {`Your total is $ ${cart.total}`}
-                 amount={cart.token*100}
-                 token={onToken}
-                 stripeKey={KEY}
-                 >
-                <Button>CHECKOUT NOW</Button>
+
+                {user ? ( 
+                  
+                  <StripeCheckout
+                  name="AZ shop"
+                  image="https://t4.ftcdn.net/jpg/03/55/85/33/360_F_355853378_GdpSXobZfh98O1dN6PPatkxZwbeGd9yj.jpg"
+                  billingAddress
+                  shippingAddress
+                  description = {`Your total is $ ${cart.total}`}
+                  amount={cart.token*100}
+                  token={onToken}
+                  stripeKey={KEY}
+                  >
+                  <Button>CHECKOUT NOW</Button>
 
                  </StripeCheckout>
+
+                ): (
+                 <Button onClick={openModal}>CHECKOUT NOW</Button>
+                )}
             </Summary>
 
           </Bottom>
@@ -305,6 +481,7 @@ const Cart = () => {
       <Footer />
 
     </Container>
+  </>
   )
 }
 

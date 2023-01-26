@@ -21,12 +21,15 @@ const Products = ({cat,filters,sort}) => {
   useEffect(()=>{
     const getProducts = async () =>{
       try{
+      //  const res = await axios.get( cat
+        //  ? `https://a-zboutiqueapi.onrender.com/api/products?category=${cat}`
+          //: "https://a-zboutiqueapi.onrender.com/api/products" );
         const res = await axios.get( cat
-          ? `https://a-zboutiqueapi.onrender.com/api/products?category=${cat}`
-          : "https://a-zboutiqueapi.onrender.com/api/products" );
+          ? `http://127.0.0.1:5000/api/products?category=${cat}`
+          : "http://127.0.0.1:5000/api/products" );
         setProducts(res.data)
       }catch(err){
-        console.log(err );
+        console.log(err);
       }
     };
     getProducts();

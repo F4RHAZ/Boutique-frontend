@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { Link } from  "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/userRedux";
-
+import {logoutCart} from "../redux/cartRedux";
 
 
 const Container = styled.div`
@@ -104,6 +104,7 @@ const Navbar = () => {
        // console.log(localStorage.getItem("persist:root"));
         localStorage.removeItem("persist:root");
         dispatch(logout());
+        dispatch(logoutCart());
       }
 
 
