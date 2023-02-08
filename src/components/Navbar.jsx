@@ -280,13 +280,19 @@ const Navbar = () => {
         
         ): (
           <>
+          
+          <Hamburger onClick={() => setOpen(!open)}>
+            <MenuIcon/>
+          </Hamburger>
+          <Nav open={open}>
             <MenuItem as={Link} to="/register">
               REGISTER
             </MenuItem>
             <MenuItem as={Link} to="/login">
                   LOGIN
             </MenuItem>
-            </>
+        </Nav>
+        </>
         )}
             
               <MenuItemBadge as={Link} to="/cart">
