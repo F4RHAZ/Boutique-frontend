@@ -24,12 +24,12 @@ const PayButton = ({cart}) =>{
     const handleCheckout =() =>{
         let cart1 = cart.products;
         let userId = user._id
+        axios.post(`http://127.0.0.1:5000/api/checkout/create-checkout-session`, {
+            userId,
+            cart1, 
         // axios.post(`http://127.0.0.1:5000/api/checkout/create-checkout-session`, {
         //     userId,
         //     cart1, 
-        axios.post(`https://a-zboutiqueapi.onrender.com/api/checkout/create-checkout-session`, {
-            userId,
-            cart1, 
         }).then((res) =>{
             if(res.data.url){
                 window.location.href = res.data.url

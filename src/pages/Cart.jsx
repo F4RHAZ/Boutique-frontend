@@ -253,10 +253,11 @@ const ContinueShoppingButton = styled.button`
   border: 2px dotted teal;
   font-size:18px;
   font-weight:500;
-  width: 20px;
+  width: 10rem;
 `;
 
 const CheckoutButton = styled.button`
+  width: 10rem;
   padding: 10px;
   font-weight: 600;
   cursor: pointer;
@@ -473,8 +474,9 @@ const Cart = () => {
                 )}
              */}
             
+            
             {user ? (
-              cart.length > 0 ? (
+              cart.quantity > 0 ? (
                 <PayButton cart={cart} />
               ) : (
                 <ButtonCheckout onClick={() => window.alert("Cart is empty, please add items to the cart.")}>
