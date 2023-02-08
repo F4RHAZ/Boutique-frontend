@@ -105,7 +105,7 @@ const Footer = () => {
   return(
     <Container>
       <Left>
-        <Logo> A-Z Boutique </Logo>
+        <Logo> THE CITY BOUTIQUE </Logo>
 
         <Desc>
         "Empowering customers with stylish, affordable clothing while promoting sustainable practices and ethical production."

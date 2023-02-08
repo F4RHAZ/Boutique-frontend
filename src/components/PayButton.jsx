@@ -24,7 +24,7 @@ const PayButton = ({cart}) =>{
     const handleCheckout =() =>{
         let cart1 = cart.products;
         let userId = user._id
-        axios.post(`http://127.0.0.1:5000/api/checkout/create-checkout-session`, {
+        axios.post(`https://a-zboutiquefrontend.onrender.com/api/checkout/webhook`, {
             userId,
             cart1, 
         // axios.post(`http://127.0.0.1:5000/api/checkout/create-checkout-session`, {
