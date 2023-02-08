@@ -2,7 +2,7 @@ import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@mui/icons-material";
 import React from "react";
 import styled from "styled-components";
-import { mobile } from "../responsive";
+import { mobile, tablet } from "../responsive";
 import { useSelector } from "react-redux";
 import { Link } from  "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -22,6 +22,8 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   ${mobile({ padding: "10px 0px" })}
+  ${tablet({ padding: "10px 0px" })}
+  
 `;
 
 const Left = styled.div`
@@ -34,6 +36,8 @@ const Language = styled.span`
   font-size: 14px;
   cursor: pointer;
   ${mobile({ display: "none" })}
+  ${tablet({ display: "none" })}
+  
 `;
 
 const SearchContainer = styled.div`
@@ -47,6 +51,7 @@ const SearchContainer = styled.div`
 const Input = styled.input`
   border: none;
   ${mobile({ width: "50px" })}
+  ${tablet({ width: "50px" })}
 `;
 
 const Center = styled.div`
@@ -57,6 +62,8 @@ const Center = styled.div`
 const Logo = styled.h1`
   font-weight: bold;
   ${mobile({ fontSize: "16px"})}
+  ${tablet({ fontSize: "18px"})}
+  
 `;
 const Right = styled.div`
   flex: 1;
@@ -64,6 +71,7 @@ const Right = styled.div`
   align-items: center;
   justify-content: flex-end;
   ${mobile({ flex: 2, justifyContent: "center" })}
+  ${tablet({ flex: 2, justifyContent: "center" })}
 `;
 
 const MenuItem = styled.div`
@@ -74,14 +82,21 @@ const MenuItem = styled.div`
   border-radius: 10%;
   padding: 15px;
   margin-left: 25px;
-  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+  ${mobile({ fontSize: "12px", 
+  marginLeft: "2px",
+  width:"2em" })}
+  ${tablet({ fontSize: "14px", 
+  marginLeft: "8px",
+ })}
+  
   &:hover{
-    background-color:#AFEEEE;
+    background-color:#black;
     font-size: 18px;
     font-weight: 900;
   }
   `;
 
+  
 const StyledBadge = styled(Badge)`
   &:hover {
     font-size:20px;
@@ -89,10 +104,22 @@ const StyledBadge = styled(Badge)`
       font-size: 25px;
     }
   }
+  ${mobile({
+    fontSize: "15px",
+    '.MuiSvgIcon-root': {
+      fontSize: "18px"
+    }
+  })}
 `;
 
 
 const Navbar = () => {
+  
+
+ 
+ 
+ 
+ 
   const quantity = useSelector(state=>state.cart.quantity);
   const user = useSelector(state=>state.user.currentUser);
 
@@ -128,9 +155,17 @@ const Navbar = () => {
         <Right>
         
         {user ? (
+          <>
+          <MenuItem as={Link} to="/"  >
+            Home
+          </MenuItem>
+          <MenuItem as={Link} to="/profile" >
+            Profile
+          </MenuItem>
           <MenuItem onClick={handleLogout}>
             logout
           </MenuItem>
+          </>
         
         ): (
           <>
@@ -152,6 +187,10 @@ const Navbar = () => {
       </Wrapper>
     </Container>
   );
+
+
+ 
+
 };
 
 export default Navbar;

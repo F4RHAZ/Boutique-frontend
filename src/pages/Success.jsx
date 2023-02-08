@@ -1,55 +1,66 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
-import { useSelector } from "react-redux";
-import { userRequest } from "../requestMethods";
-import { Link } from  "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import {clearCart } from '../redux/cartRedux';
+import Navbar from '../components/Navbar';
+import { Link } from 'react-router-dom';
 
-const Success = () =>{
-  const location = useLocation();
+const Success = () => {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
 
-  const data = location.state.data;
-  const cart = location.state.products;
-  const currentUser = useSelector((state) => state.user.currentUser);
-  const [orderId, setOrderId] = useState(null);
+  useEffect(() => {
+    dispatch(clearCart());
+  }, [dispatch]);
 
-  console.log(data , cart, currentUser);
-
-  useEffect(() =>{
-    const createOrder = async () =>{
-      try{
-        const res = await userRequest.post("/orders" ,{
-          userId: currentUser._id,
-          porducts: cart.products.map((item) =>({
-            ProductId: item._id,
-            quantity: item._quantity,
-          })),
-          amount: cart.total,
-          address: data.billing_details.address,
-        });
-        setOrderId(res.data._id);
-      }catch (err){
-        console.log(err);
-      }
-    };
-    data && createOrder();
-  }, [cart , data, currentUser]);
+ 
 
   return (
-   <div
-     style={{
-       height: "100vh",
-       display: "flex",
-       flexDirection: "column",
-       alignItems: "center",
-       justifyContent: "center",
-     }}
-   >
-     {orderId
-       ? `Order has been created successfully. Your order number is ${orderId}`
-       : `Successfull. Your order is being prepared...`}
-     <button style={{ padding: 10, marginTop: 20 }}>Go to Homepage</button>
-   </div>
- );
+    <>
+  <Navbar />
+    <Container>
+      <h2>Checkout Successful</h2>
+      <p>Your order might take some time to process.</p>
+      <p>Check your order status at your profile after about 10mins.</p>
+      <p>
+        Incase of any inqueries contact the support at{" "}
+        <strong>support@onlineshop.com</strong>
+      </p>
+      <br />
+      <TopButton as={Link} to="/">
+              CONTINUE SHOPPING
+            </TopButton>
+    </Container>
+    </>
+  );
 };
 
-export default Success
+export default Success;
+
+const Container = styled.div`
+  min-height: 80vh;
+  max-width: 800px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  h2 {
+    margin-bottom: 0.5rem;
+    color: #029e02;
+  }
+`;
+
+const TopButton = styled.button`
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px dotted teal;
+  text-decoration: none;
+  border: ${props => props.type === "filled" && "none"};
+  background-color: ${props =>
+    props.type === "filled" ? "black" : "transparent"};
+  color: ${props => props.type === "filled" && "white"};
+  
+`;

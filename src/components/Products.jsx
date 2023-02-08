@@ -21,12 +21,12 @@ const Products = ({cat,filters,sort}) => {
   useEffect(()=>{
     const getProducts = async () =>{
       try{
-        const res = await axios.get( cat
-          ? `https://a-zboutiqueapi.onrender.com/api/products?category=${cat}`
+       const res = await axios.get( cat
+         ? `https://a-zboutiqueapi.onrender.com/api/products?category=${cat}`
           : "https://a-zboutiqueapi.onrender.com/api/products" );
-        //const res = await axios.get( cat
-         // ? `http://127.0.0.1:5000/api/products?category=${cat}`
-          //: "http://127.0.0.1:5000/api/products" );
+        // const res = await axios.get( cat
+        //   ? `http://127.0.0.1:5000/api/products?category=${cat}`
+        //   : "http://127.0.0.1:5000/api/products" );
         setProducts(res.data)
       }catch(err){
         console.log(err);
@@ -65,7 +65,7 @@ const Products = ({cat,filters,sort}) => {
       {cat ? filteredProducts.map(item =>(
         <Product item= {item} key={item._id} />
       )) : products
-          .slice(0,8)
+          .slice(0,16)
           .map(item =>(
             <Product item= {item} key={item._id} />
       ))}

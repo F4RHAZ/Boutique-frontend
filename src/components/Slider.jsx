@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@mui/icons-material"
 import {sliderItems} from '../data';
@@ -93,12 +93,37 @@ const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   const handleClick = (direction) => {
+    //  if(direction === "left"){
+    //     setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2 );
+      
+    //   }else{
+    //     setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0 );
+       
+    //   }
       if(direction === "left"){
-        setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2 );
-      }else{
-        setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0 );
-      }
-  };
+        if(slideIndex === 0) {
+          setSlideIndex(2);
+        } else {
+          setSlideIndex(slideIndex - 1);
+        }
+    } else {
+        if(slideIndex === 2) {
+          setSlideIndex(0);
+        } else {
+          setSlideIndex(slideIndex + 1);
+        }
+    }
+    
+
+    };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      //handleClick("right");
+    
+    }, 6000); // calls handleClick with "right" direction every 1 second
+    return () => clearInterval(intervalId);
+  }, [slideIndex]);
 
   return (
     <Container>

@@ -2,7 +2,8 @@ import React ,  {useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
-import Newsletter from "../components/Newsletter";
+//import Newsletter from "../components/Newsletter";
+import Products from '../components/Products';
 import Footer from "../components/Footer";
 import { Add, Remove } from "@mui/icons-material";
 import { mobile } from "../responsive";
@@ -12,7 +13,6 @@ import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import { Link } from  "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
-
 const Container = styled.div``;
 
 
@@ -192,6 +192,7 @@ const ModalWrapper = styled.div`
 
   
 const ContinueShoppingButton = styled.button`
+  width: 10em;
   padding: 10px;
   font-weight: 600;
   cursor: pointer;
@@ -206,7 +207,8 @@ const ContinueShoppingButton = styled.button`
 `;
 
 const CheckoutButton = styled.button`
-  padding: 10px;
+  width: 10em;
+  padding: 10px 10px;
   color: white;
   font-weight: 600;
   cursor: pointer;
@@ -303,6 +305,7 @@ const Product = () => {
 
     <Container>
       <Navbar />
+      
       <Announcement />
 
       <Wrapper >
@@ -366,7 +369,7 @@ const Product = () => {
         </InfoContainer>
       </Wrapper>
 
-      <Newsletter />
+      <Products />
       <Footer />
 
     </Container>

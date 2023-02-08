@@ -6,6 +6,7 @@ import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
 import Cart from "./pages/Cart";
 import Success from "./pages/Success";
+import Profile from "./pages/Profile";
 import { useSelector } from "react-redux";
 
 
@@ -22,9 +23,11 @@ const App = () => {
         <Route path ='/product/:id' element ={<Product />} />
         <Route path ='/cart' element ={<Cart />} />
         <Route path ='/success' element ={<Success />} />
+        <Route path ='/profile' element ={<Profile />} />
 
         <Route path ='/login' element = {user ? <Navigate to="/"/> : <Login />} />
         <Route path ='/register' element = {user ? <Navigate to="/"/> : <Register />}  />
+        
       </Routes>
 
 
@@ -35,3 +38,6 @@ const App = () => {
 
 };
 export default App;
+
+
+//<Route path="*" element={<NotFount/>}></Route>

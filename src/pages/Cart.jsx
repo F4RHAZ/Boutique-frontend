@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from 'react';
+import React , {useState} from 'react';
 import { Add, Remove } from "@mui/icons-material";
 import styled from 'styled-components';
 import Announcement from '../components/Announcement';
@@ -6,16 +6,17 @@ import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import { mobile } from "../responsive";
 import { useSelector } from 'react-redux';
-import StripeCheckout from "react-stripe-checkout";
-import {userRequest} from  "../requestMethods";
-import {useNavigate} from "react-router-dom";
+//import StripeCheckout from "react-stripe-checkout";
+import PayButton from "../components/PayButton";
+//import {userRequest} from  "../requestMethods";
+//import {useNavigate} from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { removeProduct, clearCart, reduceQntity, addProduct } from '../redux/cartRedux';
 import { useDispatch } from "react-redux";
 import CloseIcon from '@mui/icons-material/Close';
 
 
-const KEY=process.env.REACT_APP_STRIPE;
+//const KEY=process.env.REACT_APP_STRIPE;
 
 
 const Container = styled.div`
@@ -206,8 +207,19 @@ const Button = styled.button`
   background-color: #394040;
   color: white;
   font-weight: 600;
+  cursor: pointer;
 `;
 
+const ButtonCheckout = styled.button`
+width: 100%;
+padding: 10px;
+margin-top: 10px;
+background-color: #394040;
+color: white;
+font-weight: 600;
+cursor: pointer;
+
+`;
 
 
 //Modalcomponents
@@ -230,6 +242,7 @@ const ModalWrapper = styled.div`
 
   
 const ContinueShoppingButton = styled.button`
+  
   padding: 10px;
   font-weight: 600;
   cursor: pointer;
@@ -240,7 +253,7 @@ const ContinueShoppingButton = styled.button`
   border: 2px dotted teal;
   font-size:18px;
   font-weight:500;
-  
+  width: 20px;
 `;
 
 const CheckoutButton = styled.button`
@@ -271,8 +284,8 @@ const CloseButton = styled.button`
 const Cart = () => {
 
   const cart = useSelector(state=>state.cart);
-  const [stripeToken, setStripeToken] = useState(null);
-  const navigate = useNavigate();
+  //const [stripeToken, setStripeToken] = useState(null);
+ // const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector(state=>state.user.currentUser);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -280,25 +293,25 @@ const Cart = () => {
 
   //const [quantity, setqnt] = useState(1);
 
-  const onToken = (token)=>{
-      setStripeToken(token);
-  };
+  // const onToken = (token)=>{
+  //     setStripeToken(token);
+  // };
 
 
-  useEffect(() => {
-  const makeRequest = async () => {
-    try {
-      const res = await userRequest.post("/checkout/payment", {
-        tokenId: stripeToken.id,
-        amount: cart.total * 100,
-      });
-      navigate("/success", {state : {data:res.data, products: cart}});
-      } catch(err) {
-        console.log(err);
-      }
-    };
-    stripeToken && cart.total>=1 && makeRequest();
-  }, [stripeToken, cart.total, navigate, cart]);
+  // useEffect(() => {
+  // const makeRequest = async () => {
+  //   try {
+  //     const res = await userRequest.post("/checkout/payment", {
+  //       tokenId: stripeToken.id,
+  //       amount: cart.total * 100,
+  //     });
+  //     navigate("/success", {state : {data:res.data, products: cart}});
+  //     } catch(err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   stripeToken && cart.total>=1 && makeRequest();
+  // }, [stripeToken, cart.total, navigate, cart]);
 
     const handleClick = (product) => {
      dispatch(removeProduct(product));
@@ -450,26 +463,28 @@ const Cart = () => {
                 <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
                 </SummaryItem>
 
-
+            {/* 
                 {user ? ( 
-                  
-                  <StripeCheckout
-                  name="AZ shop"
-                  image="https://t4.ftcdn.net/jpg/03/55/85/33/360_F_355853378_GdpSXobZfh98O1dN6PPatkxZwbeGd9yj.jpg"
-                  billingAddress
-                  shippingAddress
-                  description = {`Your total is $ ${cart.total}`}
-                  amount={cart.token*100}
-                  token={onToken}
-                  stripeKey={KEY}
-                  >
-                  <Button>CHECKOUT NOW</Button>
-
-                 </StripeCheckout>
+                
+                <PayButton cart= {cart} />
 
                 ): (
-                 <Button onClick={openModal}>CHECKOUT NOW</Button>
+                 <ButtonCheckout onClick={openModal}>CHECKOUT NOW</ButtonCheckout>
                 )}
+             */}
+            
+            {user ? (
+              cart.length > 0 ? (
+                <PayButton cart={cart} />
+              ) : (
+                <ButtonCheckout onClick={() => window.alert("Cart is empty, please add items to the cart.")}>
+                  CHECKOUT NOW
+                </ButtonCheckout>
+              )
+            ) : (
+              <ButtonCheckout onClick={openModal}>SIGN IN TO CHECKOUT</ButtonCheckout>
+            )}
+
             </Summary>
 
           </Bottom>
