@@ -1,13 +1,13 @@
 import "./register.css";
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import {mobile} from '../../responsive';
+import {mobile, tablet, desktop} from '../../responsive';
 import { Link } from  "react-router-dom";
 import { Search } from "@mui/icons-material";
 import FormInput from "../../components/FormInput";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../redux/apiCalls";
-
+import Footer from "../../components/Footer";
 
 
 
@@ -30,6 +30,9 @@ const NavLeft = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+  ${mobile({ display: "none" })}
+  ${tablet({ display: "none" })}
+
 `;
 
 const NavLanguage = styled.span`
@@ -53,14 +56,36 @@ const NavInput = styled.input`
 `;
 
 const NavCenter = styled.div`
-  flex: 1;
+  flex: 2;
   text-align: center;
+  ${mobile({ flex: 2})}
+  ${tablet({ flex: 2})}
+  ${desktop({ flex: 3})}
 `;
 
 const NavLogo = styled.h1`
+  flex:4;
   font-weight: bold;
-  ${mobile({ fontSize: "16px"})}
+  font-family: 'Kalam', cursive;
+  ${mobile({
+    flex:3, 
+    fontSize: "20px",
+    fontWeight: "bold",
+    })}
+  ${tablet({
+    flex:3, 
+    fontSize: "25px",
+    fontWeight: "bold",
+  })}
+  ${desktop({
+    flex:3,
+    fontSize: "30px",
+    fontWeight: "bold",
+
+  })}
 `;
+
+
 const NavRight = styled.div`
   flex: 1;
   display: flex;
@@ -79,6 +104,8 @@ const NavMenuItem = styled.div`
   padding: 15px;
   margin-left: 25px;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+  ${tablet({ fontSize: "15px", marginLeft: "12px" })}
+ 
   &:hover{
     background-color:#AFEEEE;
     font-size: 18px;
@@ -186,7 +213,7 @@ const Register = () => {
         <NavCenter>
             <Link to="/" style={{ textDecoration: 'none', color: 'black',  cursor: 'default'}}>
               <NavLogo>
-              A-Z Boutique
+              THE CITY BOUTIQUE
           </NavLogo>
           </Link>
         </NavCenter>
@@ -206,7 +233,7 @@ const Register = () => {
 
       <div className="container">
       <form className="regForm" onSubmit={handleSubmit}>
-        <h1 className="registerTitle">Register</h1>
+        <h1 className="registerTitle">REGISTER</h1>
         {inputs.map((input) => (
           <FormInput id="formInput"
             key={input.id}
@@ -220,7 +247,8 @@ const Register = () => {
       </form>
       </div>
 
-
+      <br/>
+      <Footer/>
 
     </>
   )

@@ -9,7 +9,7 @@ export const sliderItems = [
   },
   {
     id: 2,
-    img: "https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZmFzaGlvbiUyMGRyZXNzfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+   // img: "https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZmFzaGlvbiUyMGRyZXNzfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
     title: "WINTER SALE",
     desc: "Don't Miss, get your 40% off Right NOW!!!!",
     bg: "fcf1ed",

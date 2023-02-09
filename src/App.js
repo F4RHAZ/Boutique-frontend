@@ -8,14 +8,20 @@ import Cart from "./pages/Cart";
 import Success from "./pages/Success";
 import Profile from "./pages/Profile";
 import { useSelector } from "react-redux";
-
+import { Helmet } from 'react-helmet';
 
 
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
   
   return  (
-    <Router>
+    <>
+    <Helmet>
+     <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+     <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Kalam:wght@700&family=Kaushan+Script&family=Montserrat:wght@300;400&family=Rubik+Moonrocks&display=swap" rel="stylesheet"/>
+   </Helmet>
+  <Router>
       
       <Routes>
         <Route path = '/' element = {<Home />} />
@@ -32,6 +38,7 @@ const App = () => {
 
 
     </Router>
+    </>
 
   );
 

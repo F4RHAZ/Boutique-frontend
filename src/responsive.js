@@ -15,3 +15,27 @@ export const tablet = (props) => {
     }
   `;
 };
+
+export const desktop = (props) => {
+  return css`
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+      ${props}
+    }
+  `;
+};
+
+export const largeDesktop = (props) => {
+  return css`
+    @media only screen and (min-width: 992px) and (max-width: 1199px) {
+      ${props}
+    }
+  `;
+};
+
+export const extraLargeDesktop = (props) => {
+  return css`
+    @media only screen and (min-width: 1200px) {
+      ${props}
+    }
+  `;
+};

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { mobile } from "../../responsive";
+import { mobile, tablet, desktop } from "../../responsive";
 import { login } from "../../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import FormInput from "../../components/FormInput";
 import "./login.css";
 import { Link } from  "react-router-dom";
 import { Search } from "@mui/icons-material";
-
+import Footer from '../../components/Footer';
 
 /////////////////////////////
 //    NAVBAR
@@ -29,6 +29,8 @@ const NavLeft = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+  ${mobile({ display: "none" })}
+  ${tablet({ display: "none" })}
 `;
 
 const NavLanguage = styled.span`
@@ -36,6 +38,7 @@ const NavLanguage = styled.span`
   cursor: pointer;
   color: black;
   ${mobile({ display: "none" })}
+  ${tablet({ display: "none" })}
 `;
 
 const NavSearchContainer = styled.div`
@@ -44,6 +47,9 @@ const NavSearchContainer = styled.div`
   align-items: center;
   margin-left: 25px;
   padding: 5px;
+  ${mobile({ display: "none" })}
+  ${tablet({ display: "none" })}
+
 `;
 
 const NavInput = styled.input`
@@ -52,20 +58,42 @@ const NavInput = styled.input`
 `;
 
 const NavCenter = styled.div`
-  flex: 1;
+  flex: 2;
   text-align: center;
+  ${mobile({ flex: 2})}
+  ${tablet({ flex: 2})}
+  ${desktop({ flex: 3})}
 `;
 
 const NavLogo = styled.h1`
+  flex:4;
   font-weight: bold;
-  ${mobile({ fontSize: "16px"})}
+  font-family: 'Kalam', cursive;
+  ${mobile({
+    flex:3, 
+    fontSize: "20px",
+    fontWeight: "bold",
+    })}
+  ${tablet({
+    flex:3, 
+    fontSize: "25px",
+    fontWeight: "bold",
+  })}
+  ${desktop({
+    flex:3,
+    fontSize: "30px",
+    fontWeight: "bold",
+
+  })}
 `;
+
+
 const NavRight = styled.div`
-  flex: 1;
+  flex: ;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${mobile({ flex: 2, justifyContent: "center" })}
+  ${mobile({ flex: 2, justifyContent: "flex-end" })}
 `;
 
 const NavMenuItem = styled.div`
@@ -84,6 +112,7 @@ const NavMenuItem = styled.div`
   }
   `;
 ////////////////////////////////////////////
+
 
 const Error = styled.span`
   color: red;
@@ -154,14 +183,14 @@ const Login = () => {
         <NavCenter>
             <Link to="/" style={{ textDecoration: 'none', color: 'black',  cursor: 'default'}}>
               <NavLogo>
-              A-Z Boutique
+              THE CITY BOUTIQUE
           </NavLogo>
           </Link>
         </NavCenter>
         <NavRight>
         
             <NavMenuItem as={Link} to="/register">
-              Register
+              REGISTER
             </NavMenuItem>
         
         
@@ -172,7 +201,7 @@ const Login = () => {
 
        <div id="LoginContainer">
       <form id="loginForm" onSubmit={handleSubmit}>
-        <h1 id="loginTitle">Login</h1>
+        <h1 id="loginTitle">LOGIN</h1>
         {inputs.map((input) => (
           <FormInput id="formInput"
             key={input.id}
@@ -187,6 +216,7 @@ const Login = () => {
       <p id="NoAcc"style={{marginTop: '5px', marginBottom: '10px'}}>Dont Have an Account?? <Link to="/register">Click here</Link> </p>
       </form>
       </div>
+      <Footer/>
     </>
   );
 };

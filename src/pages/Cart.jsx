@@ -29,6 +29,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h1`
+  font-family: 'Kalam', cursive;
   font-weight: 300;
   text-align: center;
 `;
@@ -186,6 +187,7 @@ const Summary = styled.div`
 
 const SummaryTitle = styled.h1`
   font-weight: 200;
+  font-family: 'Kalam', cursive;
 `;
 
 const SummaryItem = styled.div`
@@ -201,6 +203,7 @@ const SummaryItemText = styled.span``;
 const SummaryItemPrice = styled.span``;
 
 const Button = styled.button`
+    
   width: 100%;
   padding: 10px;
   margin-top: 10px;
@@ -211,6 +214,7 @@ const Button = styled.button`
 `;
 
 const ButtonCheckout = styled.button`
+
 width: 100%;
 padding: 10px;
 margin-top: 10px;
@@ -372,13 +376,14 @@ const Cart = () => {
       <Navbar/>
       <Announcement />
         <Wrapper>
-          <Title> YOUR BAG </Title>
+          <Title> YOUR CART </Title>
           <Top>
-            <TopButton as={Link} to="/">
-              CONTINUE SHOPPING
+            <TopButton as={Link} to="/"
+            style={{ width: "10rem" }}>
+              KEEP SHOPPING
             </TopButton>
             <TopButton 
-              style={{ color:'white', backgroundColor: "crimson", width: "17rem" }} 
+              style={{ color:'white', backgroundColor: "crimson", width: "10rem" }} 
               onClick={cleanCart}
               >
               CLEAR CART

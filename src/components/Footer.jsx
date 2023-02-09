@@ -10,7 +10,8 @@ import {
   Twitter,
 } from "@mui/icons-material";
 
-import { mobile } from "../responsive";
+import { mobile, tablet } from "../responsive";
+import cityLogo from "../Logo/cityLogo.jpg";
 
 
 
@@ -30,12 +31,14 @@ const Logo = styled.h1``;
 
 const Desc = styled.p`
   margin: 20px 0px;
-
+  text-align: center;
+  font-size: 20px;
 `;
 
 const SocialContainer = styled.div`
   display: flex;
-
+  align-items:center;
+  justify-content: center;
 `;
 
 const SocialIcon = styled.div`
@@ -57,6 +60,7 @@ const Center = styled.div`
   flex: 1;
   padding: 20px;
   ${mobile({ display: "none" })}
+  ${tablet({ display: "none" })}
 
 
 
@@ -93,19 +97,28 @@ const ContactItem = styled.div`
   margin-bottom: 20px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Payment = styled.img`
     width: 50%;
 `;
 
+const Img = styled.img`
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+`;
 
 
 const Footer = () => {
   return(
     <Container>
       <Left>
-        <Logo> THE CITY BOUTIQUE </Logo>
+        <Logo> 
+        <Img src={cityLogo} alt="My App Logo" />
+        </Logo>
 
         <Desc>
         "Empowering customers with stylish, affordable clothing while promoting sustainable practices and ethical production."
@@ -152,15 +165,21 @@ const Footer = () => {
 
       <Right>
       <Title>Contact</Title>
-      <ContactItem>
+      <ContactItem onClick={() => window.open("https://www.google.com/maps/place/Airport+Road,+Juba,+South+Sudan/")}> 
         <Room style={{marginRight:"10px"}}/> Airport road opposit Alpha Bank Juba, South Sudan
       </ContactItem>
-      <ContactItem>
-        <Phone style={{marginRight:"10px"}}/> +211 929 922 414
+      <ContactItem onClick={() => window.open("tel:+211923612222")}>
+        <Phone style={{marginRight:"10px"}}/> +211 923 612 222
       </ContactItem>
-      <ContactItem>
+      <ContactItem onClick={() => window.open("tel:+211913612222")}>
+        <Phone style={{marginRight:"10px"}}/> +211 913 612 222
+      </ContactItem>
+      <ContactItem onClick={() => window.open("tel:+211983612222")}>
+        <Phone style={{marginRight:"10px"}}/> +211 983 612 222
+      </ContactItem>
+      <ContactItem onClick={() => window.open("mailto:gochgoch@yahoo.com")}>
         <MailOutline style={{marginRight:"10px"}} /> gochgoch@yahoo.com
-      </ContactItem>
+      </ContactItem >
       <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
 
 

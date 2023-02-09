@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@mui/icons-material"
 import {sliderItems} from '../data';
-import { mobile } from "../responsive";
+import { mobile, tablet } from "../responsive";
 
 
 const Container = styled.div `
@@ -40,6 +40,7 @@ const Wrapper = styled.div `
   display: flex;
   transition: all 1.5s ease;
   transform: translateX(${props => props.slideIndex * -100}vw);
+  
 `;
 
 const Slide = styled.div `
@@ -49,13 +50,15 @@ const Slide = styled.div `
   align-items: center;
 
   background-color: #${props => props.bg};
-
+  ${tablet({ flexDirection : "column" })}
 `;
 
 
 const ImgContainer = styled.div `
   height: 100%;
   flex: 1;
+ ${tablet({ flexDirection : "column" })}
+ 
 `;
 
 
@@ -67,6 +70,7 @@ const Image = styled.img`
 const InfoContainer = styled.div `
   flex : 1;
   padding: 10px;
+   ${tablet({ flexDirection : "column" })}
 `;
 
 const Title = styled.h1`

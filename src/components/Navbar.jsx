@@ -4,7 +4,7 @@ import { Search, ShoppingCartOutlined } from "@mui/icons-material";
 import MenuIcon from '@mui/icons-material/Menu';
 import React from "react";
 import styled from "styled-components";
-import { mobile, tablet } from "../responsive";
+import { mobile, tablet, desktop } from "../responsive";
 import { useSelector } from "react-redux";
 import { Link } from  "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -80,8 +80,8 @@ const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  ${mobile({ display: "none" })}
-  ${tablet({ display: "none" })}
+  ${mobile({ marginLeft: "1em" })}
+ 
 `;
 
 const Language = styled.span`
@@ -100,6 +100,7 @@ const SearchContainer = styled.div`
   padding: 5px;
   ${mobile({ display: "none" })}
   ${tablet({ display: "none" })}
+  ${desktop({display: "none"})}
 `;
 
 const Input = styled.input`
@@ -113,30 +114,41 @@ const Center = styled.div`
   text-align: center;
   ${mobile({ flex: 2})}
   ${tablet({ flex: 2})}
+  ${desktop({ flex: 3})}
 `;
 
 const Logo = styled.h1`
-  flex:2;
+  flex:4;
   font-weight: bold;
-  
-  ${mobile({ 
+  font-family: 'Kalam', cursive;
+  ${mobile({
+    flex:3, 
     fontSize: "20px",
     fontWeight: "bold",
     })}
-  ${tablet({ 
+  ${tablet({
+    flex:3, 
     fontSize: "25px",
     fontWeight: "bold",
   })}
-  
+  ${desktop({
+    flex:3,
+    fontSize: "30px",
+    fontWeight: "bold",
+
+  })}
 `;
+
+
 const Right = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${mobile({ flex: 2, justifyContent: "flex-end" })}
-  ${tablet({ flex: 2, justifyContent: "flex-end" })}
-`;
+  ${mobile({ flex: 1, justifyContent: "flex-end" })}
+  ${tablet({ flex: 1, justifyContent: "flex-end" })}
+
+  `;
 
 const MenuItem = styled.div`
   font-size: 15px;
@@ -245,21 +257,8 @@ const Navbar = () => {
       <Wrapper>
         <Left>
           <Language>EN</Language>
-          <SearchContainer>
-            <Input placeholder="Search" />
-            <Search style={{ color: "gray", fontSize: 16 }} />
-          </SearchContainer>
-        </Left>
-        <Center>
-        <Link to="/" style={{ textDecoration: 'none', color: 'black', cursor: 'default'}}>
-          <Logo>
-            THE CITY BOUTIQUE
-          </Logo>
-          </Link>
-        </Center>
-        <Right>
         
-        {user ? (
+          {user ? (
           <>
         <Hamburger onClick={() => setOpen(!open)}>
           <MenuIcon/>
@@ -294,6 +293,22 @@ const Navbar = () => {
         </Nav>
         </>
         )}
+
+        </Left>
+        <Center>
+        <Link to="/" style={{ textDecoration: 'none', color: 'black', cursor: 'default'}}>
+          <Logo>
+            THE CITY BOUTIQUE
+          </Logo>
+          </Link>
+        </Center>
+        <Right>
+        <SearchContainer>
+            <Input placeholder="Search" />
+            <Search style={{ color: "gray", fontSize: 16 }} />
+          </SearchContainer>
+        
+       
             
               <MenuItemBadge as={Link} to="/cart">
                 <StyledBadge overlap="rectangular" badgeContent={quantity} color="primary">
