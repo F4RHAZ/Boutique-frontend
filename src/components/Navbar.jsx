@@ -80,7 +80,9 @@ const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  ${mobile({ marginLeft: "1em" })}
+  ${mobile({ marginLeft: "1em",
+    flexDirection: "flex-start", 
+    })}
  
 `;
 

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {clearCart } from '../redux/cartRedux';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
+import Footer from "../components/Footer";
 
 const Success = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Success = () => {
   return (
     <>
   <Navbar />
-    <Container>
+    <Container style={{ textAlign: "center" }}  >
       <h2>Checkout Successful</h2>
       <p>Your order might take some time to process.</p>
       <p>Check your order status at your profile after about 10mins.</p>
@@ -31,6 +32,7 @@ const Success = () => {
               CONTINUE SHOPPING
             </TopButton>
     </Container>
+    <Footer/>
     </>
   );
 };

@@ -20,8 +20,8 @@ const App = () => {
      <link rel="preconnect" href="https://fonts.googleapis.com"/>
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
      <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Kalam:wght@700&family=Kaushan+Script&family=Montserrat:wght@300;400&family=Rubik+Moonrocks&display=swap" rel="stylesheet"/>
-   </Helmet>
-  <Router>
+    </Helmet>
+    <Router>
       
       <Routes>
         <Route path = '/' element = {<Home />} />
